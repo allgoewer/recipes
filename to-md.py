@@ -6,6 +6,7 @@ import sys
 import yaml
 import jinja2
 
+
 TEMPLATE = jinja2.Template('''---
 title: {{ recipe.name }}
 ...
@@ -38,7 +39,6 @@ def terminate_sentence(sentence):
 
 
 def scale_ingredient(ingredient, scale):
-
     try:
         amount, remainder = ingredient.split(maxsplit=1)
         amount = float(amount)
@@ -56,7 +56,6 @@ if __name__ == "__main__":
         portions = int(sys.argv[2])
     except IndexError:
         portions = recipe["portions"]
-
 
     recipe["steps"] = [terminate_sentence(s) for s in recipe["steps"]]
     recipe["ingredients"] = [scale_ingredient(i, portions / recipe["portions"])
