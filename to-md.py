@@ -38,9 +38,9 @@ def terminate_sentence(sentence):
 
 
 def scale_ingredient(ingredient, scale):
-    amount, remainder = ingredient.split(maxsplit=1)
 
     try:
+        amount, remainder = ingredient.split(maxsplit=1)
         amount = float(amount)
     except ValueError:
         return ingredient
