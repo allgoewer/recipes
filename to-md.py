@@ -15,7 +15,7 @@ title: {{ recipe.name }}
 ![](data:image/jpg;base64,{{ image }})
 {% endif %}
 
-Rezept für __{{ portions }} Portionen__
+Rezept für __{{ portions }} Portion(en)__
 
 
 ## Zutaten
