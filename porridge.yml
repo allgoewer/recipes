@@ -1,0 +1,13 @@
+name: Porridge
+image: img/porridge.jpg
+portions: 1
+ingredients:
+  - 1 Tasse(n) Haferflocken
+  - 1.5 Tasse(n) Wasser
+  - warme Milch
+  - Salz
+steps:
+  - Die Haferflocken, Salz und Wasser in einen Topf geben,
+    zum Kochen bringen und kontinuierlich bis zur
+    gewünschten Festigkeit rühren.
+  - Auf einen Teller füllen und warme Milch darüber geben. 
