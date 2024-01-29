@@ -12,7 +12,7 @@ title: {{ recipe.name }}
 ...
 
 {% if image %}
-![](data:image/jpg;base64,{{ image }})
+![](data:image/{{ image_ext }};base64,{{ image }})
 {% endif %}
 
 Rezept für __{{ portions }} Portion(en)__
@@ -60,6 +60,7 @@ if __name__ == "__main__":
     recipe["steps"] = [terminate_sentence(s) for s in recipe["steps"]]
     recipe["ingredients"] = [scale_ingredient(i, portions / recipe["portions"])
                              for i in recipe["ingredients"]]
+    _, image_extension = recipe["image"].rsplit(".", maxsplit=1)
 
     try:
         with open(recipe["image"], "rb") as f:
@@ -68,4 +69,4 @@ if __name__ == "__main__":
     except KeyError:
         image = None
 
-    print(TEMPLATE.render(portions=portions, recipe=recipe, image=image))
+    print(TEMPLATE.render(portions=portions, recipe=recipe, image=image, image_ext=image_extension))
