@@ -31,14 +31,14 @@ Rezept für __{{ portions }} Portion(en)__
 ''')
 
 
-def terminate_sentence(sentence):
+def terminate_sentence(sentence: str) -> str:
     if sentence.endswith("."):
         return sentence
     else:
         return sentence + "."
 
 
-def scale_ingredient(ingredient, scale):
+def scale_ingredient(ingredient: str, scale: float) -> str:
     try:
         amount, remainder = ingredient.split(maxsplit=1)
         amount = float(amount)
@@ -60,13 +60,14 @@ if __name__ == "__main__":
     recipe["steps"] = [terminate_sentence(s) for s in recipe["steps"]]
     recipe["ingredients"] = [scale_ingredient(i, portions / recipe["portions"])
                              for i in recipe["ingredients"]]
-    _, image_extension = recipe["image"].rsplit(".", maxsplit=1)
 
     try:
         with open(recipe["image"], "rb") as f:
+            _, image_extension = recipe["image"].rsplit(".", maxsplit=1)
             image = f.read()
             image = base64.b64encode(image).decode("utf-8")
     except KeyError:
         image = None
+        image_extension = None
 
     print(TEMPLATE.render(portions=portions, recipe=recipe, image=image, image_ext=image_extension))
