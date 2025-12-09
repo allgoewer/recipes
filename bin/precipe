@@ -1,4 +1,4 @@
 #!/bin/sh
 
 cd ~/recipes
-find -name '*.yml' -type f | fzf --tac --multi --cycle --preview='/usr/bin/bat -p --color=always {}' | xargs -I {} bash -c 'set -eou pipefail; cd ~/recipes && bin/to-md.py "{}" | typst compile - - | lp -d bixolon' 
+find -name '*.yml' -type f | fzf --tac --multi --cycle --preview='/usr/bin/bat -p --color=always {}' | xargs -I {} bash -c 'set -eou pipefail; cd ~/recipes && bin/to-typ.py "{}" | typst compile - - | lp -d bixolon' 

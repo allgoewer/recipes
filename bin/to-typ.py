@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import base64
 import sys
 import yaml
 import jinja2
@@ -81,15 +80,5 @@ if __name__ == "__main__":
     recipe["ingredients"] = [scale_ingredient(i, portions / recipe["portions"])
                              for i in recipe["ingredients"]]
 
-    try:
-        with open(recipe["image"], "rb") as f:
-            _, image_extension = recipe["image"].rsplit(".", maxsplit=1)
-            image = f.read()
-            image = base64.b64encode(image).decode("utf-8")
-    except KeyError:
-        image = None
-        image_extension = None
-
     print(TEMPLATE.render(portions=portions, recipe=recipe,
-                          image=image, image_ext=image_extension,
                           image_path=recipe.get("image")))
