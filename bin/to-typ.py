@@ -5,15 +5,16 @@ import sys
 import yaml
 import jinja2
 
-TEMPLATE = jinja2.Template("""
-#import "typst/bix.typ": recipe
+PREAMBLE = "/usr/local/bin/typst-preamble.typ"
 
+TEMPLATE = jinja2.Template("""
+#set text(lang: "de")
 #set document(title: [{{ recipe.name }}])
 
 #show: recipe.with(
   portions: {{ portions }},
   {%- if image_path %}
-  img: "/{{ image_path }}",
+  img: image("{{ image_path }}"),
   {%- endif %}
   ingredients: (
     {%- for ingredient in recipe.ingredients %}
@@ -71,6 +72,9 @@ if __name__ == "__main__":
     with open(sys.argv[1], "r") as f:
         recipe = yaml.safe_load(f)
 
+    with open(PREAMBLE, "r") as f:
+        preamble = f.read()
+
     try:
         portions = int(sys.argv[2])
     except IndexError:
@@ -80,5 +84,5 @@ if __name__ == "__main__":
     recipe["ingredients"] = [scale_ingredient(i, portions / recipe["portions"])
                              for i in recipe["ingredients"]]
 
-    print(TEMPLATE.render(portions=portions, recipe=recipe,
+    print(preamble + TEMPLATE.render(portions=portions, recipe=recipe,
                           image_path=recipe.get("image")))

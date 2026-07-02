@@ -1,10 +1,17 @@
-#let recipe(portions: [], ingredients: (), img: "", lang: "de", doc) = {
-  set page(
+// Page setup for specific printer models
+#let printer = (
+  bixolon: (
     width: 80mm,
     height: auto,
-    margin: (top: 4mm, bottom: 4mm, right: 8mm, left: 1mm)
+    margin: (left: 1mm, right: 8mm, rest: 4mm)
   )
-  set text(font: "Cascadia Code", size: 10pt, lang: lang)
+)
+
+#let recipe(portions: [], ingredients: (), img: "", lang: "de", printer: printer.bixolon, doc) = {
+  set page(
+    ..printer,
+  )
+  set text(font: ("Cascadia Code", "Noto Emoji"), size: 10pt, lang: lang)
   set par(justify: true)
   set table(
     columns: (auto, 1fr),
@@ -42,7 +49,7 @@
     [= Steps]
   }
 
-  show regex("\d+ (.?C|Grad)"): it => {box()[#emoji.fire *#it* #emoji.fire]}
+  show regex("\d+ (.?C|Grad)"): it => box()[#emoji.fire *#it*]
   
   doc
 }
